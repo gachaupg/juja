@@ -1,0 +1,33 @@
+<!-- yourapp/templates/index.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Streaming Test</title>
+</head>
+<body>
+    <h1>Audio Streaming Test</h1>
+    <div>
+        <button id="startStream">Start Streaming</button>
+    </div>
+    <div>
+        <h2>Transcription:</h2>
+        <div id="transcription"></div>
+    </div>
+    <script>
+        var socket = new WebSocket("ws://127.0.0.1:8000/ws/audio/");
+
+        document.getElementById('startStream').onclick = function() {
+            // Placeholder for capturing and streaming audio data
+            var audioData = "Dummy Audio Data";
+
+            socket.send(JSON.stringify({'audio': audioData}));
+        };
+
+        socket.onmessage = function(event) {
+            var data = JSON.parse(event.data);
+            document.getElementById('transcription').innerHTML = data.transcription;
+        };
+    </script>
+</body>
+</html>
